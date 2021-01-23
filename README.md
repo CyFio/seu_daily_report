@@ -17,9 +17,13 @@
 Linux/macOS平台请将可执行文件放置于与脚本相同的目录中，并自行修改脚本中`executable_path`中的文件名。
 ### 2.1.2. FireFox
 由于本人使用Ubuntu20.04 Server(32bit)，使用Firefox作为执行脚本的浏览器
+
 浏览器安装: sudo apt-get install firefox
+
 Firefox的webdriver为geckodriver，release版本网址https://github.com/mozilla/geckodriver/releases，下载对应版本后按网上教程的说法是放入/usr/local/bin后即可，但是本人没有成功。
+
 本人最后是通过apt安装: sudo apt-get install firefox-geckodriver
+
 对于Firefox，在获取webdriver时应调用selenium.webdriver.Firefox()
 
 
