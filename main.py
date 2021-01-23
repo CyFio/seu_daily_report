@@ -149,44 +149,44 @@ def check_todays_report(drv):
 
 
 def login(drv, cfg):
-    """登录"""
-    username_input = drv.find_element_by_id('username')  # 账户输入框
-    password_input = drv.find_element_by_id('password')  # 密码输入框
-    login_button = find_element_by_class_keyword(drv, 'auth_login_btn', '登录')  # 登录按钮
+    """Login"""
+    username_input = drv.find_element_by_id('username')  # Account Edit
+    password_input = drv.find_element_by_id('password')  # Password Edit
+    login_button = find_element_by_class_keyword(drv, 'auth_login_btn', '登录')  # Login Button
     if login_button is None:
-        login_button = find_element_by_class_keyword(drv, 'auth_login_btn', 'Sign in')  # 登录按钮
+        login_button = find_element_by_class_keyword(drv, 'auth_login_btn', 'Sign in')  # Login Button eng
 
     username_input.send_keys(cfg['username'])
     password_input.send_keys(cfg['password'])
-    login_button.click()  # 登录账户
+    login_button.click()  # Log in
 
 
 def daily_report(drv, cfg):
-    """进行每日上报"""
-    # 新增填报
-    wait_element_by_class_name(drv, 'mint-loadmore-top', 30)  # 等待界面加载 超时30s
+    """Do daily report"""
+    # New report
+    wait_element_by_class_name(drv, 'mint-loadmore-top', 30)  # waiting ddl:30s
     time.sleep(1)
-    add_btn = drv.find_element_by_xpath('//*[@id="app"]/div/div[1]/button[1]')  # 找到新增按钮
+    add_btn = drv.find_element_by_xpath('//*[@id="app"]/div/div[1]/button[1]')  # find "new" button
     if add_btn.text == '退出':
         server_chan_send(cfg['server_chan_key'], '今日已经进行过疫情上报！', '')
         return
     else:
-        add_btn.click()  # 点击新增填报按钮
-        time.sleep(3)  # 等待界面动画
+        add_btn.click()  # click "new" button
+        time.sleep(3)  # waiting animation
 
-    # 输入体温
+    # input body temperature
     temp_input = find_element_by_class_placeholder_keyword(drv, 'mint-field-core', '请输入当天晨检体温')
-    drv.execute_script("arguments[0].scrollIntoView();", temp_input)  # 滚动页面直元素可见
-    temp_input.click()  # 点击输入框
-    temp = random.randint(int(cfg['temp_range'][0] * 10), int(cfg['temp_range'][1] * 10))  # 产生随机体温
-    temp_input.send_keys(str(temp / 10))  # 输入体温
+    drv.execute_script("arguments[0].scrollIntoView();", temp_input)  # scroll until item visible
+    temp_input.click()  # click inputbox
+    temp = random.randint(int(cfg['temp_range'][0] * 10), int(cfg['temp_range'][1] * 10))  # generate random temperature
+    temp_input.send_keys(str(temp / 10))  # input!
     time.sleep(1)
 
-    # 点击提交按钮并确认
-    find_element_by_class_keyword(drv, 'mint-button--large', '确认并提交').click()  # 点击提交按钮
-    wait_element_by_class_name(drv, 'mint-msgbox-confirm', 5)  # 等待弹出动画
+    # commit
+    find_element_by_class_keyword(drv, 'mint-button--large', '确认并提交').click()  # click commit
+    wait_element_by_class_name(drv, 'mint-msgbox-confirm', 5)  # wait messagebox
     time.sleep(1)
-    find_element_by_class_keyword(drv, 'mint-msgbox-confirm', '确定').click()  # 点击确认按钮
+    find_element_by_class_keyword(drv, 'mint-msgbox-confirm', '确定').click()  # click ok
 
     server_chan_send(cfg['server_chan_key'], str(cfg['username'])+'每日疫情上报成功!', '')
 
@@ -232,7 +232,7 @@ def enter_campus_apply(drv, cfg):
 
 
 def run(profile, config):
-    driver = webdriver.Chrome(executable_path=os.path.join(current_folder, "Chromedriver.exe"))
+    driver = webdriver.Firefox()
     try:
         # 打开疫情填报网站
         driver.get(daily_report_url)
