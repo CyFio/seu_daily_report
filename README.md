@@ -15,7 +15,7 @@
 下载后请与本脚本文件放置于同一目录中, Windows平台命名为`Chromedriver.exe`。
 
 Linux/macOS平台请将可执行文件放置于与脚本相同的目录中，并自行修改脚本中`executable_path`中的文件名。
-### FireFox
+### 2.1.2. FireFox
 由于本人使用Ubuntu20.04 Server(32bit)，使用Firefox作为执行脚本的浏览器
 浏览器安装: sudo apt-get install firefox
 Firefox的webdriver为geckodriver，release版本网址https://github.com/mozilla/geckodriver/releases，下载对应版本后按网上教程的说法是放入/usr/local/bin后即可，但是本人没有成功。
